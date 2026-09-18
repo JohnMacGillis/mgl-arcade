@@ -16,15 +16,15 @@ window.ARCADE_CONFIG = {
      "local"    — this browser only. No setup. The default.
      "supabase" — shared board over the internet. Works on GitHub Pages.
      "hub"      — the Raspberry Pi on the party's own network. No internet.  */
-  driver: "local",
+  driver: "supabase",
 
   /* ---- supabase --------------------------------------------------------
      Project Settings -> API. Both of these values are PUBLIC by design;
      the anon key is safe in client code as long as row-level security is
      on (see supabase/schema.sql, which sets it up correctly).            */
   supabase: {
-    url: "",        // e.g. "https://abcdefghijkl.supabase.co"
-    anonKey: ""     // the "anon / public" key, never the service_role key
+    url: "https://yvpnbdnwpyulndmxuasr.supabase.co",
+    anonKey: "sb_publishable_5Mzsmz1pO_Uj4Nab4p6amg_eQ-F2IWE"  // publishable key — safe in client code with RLS on
   },
 
   /* ---- hub -------------------------------------------------------------
