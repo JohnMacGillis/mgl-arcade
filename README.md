@@ -101,7 +101,36 @@ load, the next submit, and whenever the browser comes back online.
 
 ---
 
-## 3. Running it locally
+## 3. The door
+
+`js/gate.js` puts a password in front of the arcade.
+
+**Be clear about what it is.** It keeps casual visitors out of a party game.
+It is **not security** — the page runs in the browser, so anyone who opens
+devtools walks straight past it. Treat the site as public; never put anything
+behind it you would mind a stranger seeing.
+
+What it does do is avoid writing the password down. Only its SHA-256 digest
+ships, so reading the source does not hand anyone the word.
+
+To change it:
+
+```bash
+printf '%s' 'your-new-password' | shasum -a 256
+```
+
+Paste the digest into `DIGEST` at the top of `js/gate.js`, commit, push. A
+visitor who is already in stays in until the digest changes.
+
+**If you ever want a real gate**, host the same repo on **Cloudflare Pages**
+and put **Cloudflare Access** in front of it — free up to 50 users, and it can
+require a `@macgillivraylaw.com` address or email a one-time code to a guest
+list. GitHub Pages cannot do this at any price below Enterprise Cloud: a Pages
+site built from a private repo is still served publicly.
+
+---
+
+## 4. Running it locally
 
 ```bash
 python3 -m http.server 8000
@@ -112,7 +141,7 @@ Then open `http://localhost:8000`. It must be served over HTTP — opening
 
 ---
 
-## 4. Controls
+## 5. Controls
 
 | | |
 |---|---|
@@ -128,7 +157,7 @@ to the Pi as arrow keys, so the games need no changes at all.
 
 ---
 
-## 5. Brand
+## 6. Brand
 
 Logo, wordmark and palette are the firm's own, taken from macgillivraylaw.com:
 
@@ -148,6 +177,6 @@ block, every page picks it up with no other change.
 
 ---
 
-## 6. Not legal advice
+## 7. Not legal advice
 
 It's a game about a maze. Nothing in it describes how any real claim works.

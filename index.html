@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="locked">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -182,7 +182,7 @@
   .entry{display:flex;flex-direction:column;gap:9px;}
   .entry label{font-family:"Press Start 2P",monospace;font-size:6px;letter-spacing:.16em;color:var(--muted);}
   .entry .row{display:flex;gap:8px;}
-  input[type=text]{
+  input[type=text], input[type=password]{
     flex:1;min-width:0;
     font-family:"Press Start 2P",monospace;font-size:11px;
     color:var(--pale);background:#061a1c;
@@ -190,8 +190,8 @@
     padding:12px 11px;
     text-transform:uppercase;
   }
-  input[type=text]:focus{outline:none;border-color:var(--brand-teal);box-shadow:0 0 0 2px rgba(6,130,136,.25);}
-  input[type=text]::placeholder{color:#3f6367;}
+  input[type=text]:focus, input[type=password]:focus{outline:none;border-color:var(--brand-teal);box-shadow:0 0 0 2px rgba(6,130,136,.25);}
+  input[type=text]::placeholder, input[type=password]::placeholder{color:#3f6367;}
 
   .board{display:flex;flex-direction:column;gap:2px;}
   .board .hd{
@@ -238,10 +238,54 @@
   .fine a{color:var(--brand-teal);text-decoration:none;border-bottom:1px solid #1d4448;}
   .fine a:hover{color:var(--pale);}
 
+  /* ---------- door ---------- */
+  .locked .cab, .locked .docket{display:none;}
+  #gate{
+    position:fixed;inset:0;z-index:50;
+    display:flex;align-items:center;justify-content:center;
+    padding:20px;background:var(--void);
+  }
+  #gate .box{
+    width:100%;max-width:360px;
+    display:flex;flex-direction:column;align-items:center;gap:18px;
+    text-align:center;
+  }
+  #gate svg{width:56px;height:56px;filter:drop-shadow(0 0 16px rgba(6,130,136,.6));}
+  #gate h1{
+    margin:0;font-family:"Press Start 2P",monospace;
+    font-size:12px;line-height:1.7;letter-spacing:.05em;color:var(--pale);
+    text-shadow:0 0 14px rgba(6,130,136,.6);
+  }
+  #gate p{margin:0;font-size:13.5px;font-weight:300;line-height:1.55;color:var(--muted);}
+  #gate form{display:flex;flex-direction:column;gap:9px;width:100%;}
+  #gate .err{min-height:17px;font-size:12.5px;font-weight:300;color:var(--brand-orange);margin:0;}
+  #gate button{padding:13px;font-size:9px;}
+
   @media (prefers-reduced-motion: reduce){ *{transition-duration:.01ms !important;} }
 </style>
 </head>
 <body>
+
+<div id="gate" hidden>
+  <div class="box">
+    <svg viewBox="0 0 1024 1024" aria-hidden="true">
+      <rect width="1024" height="1024" rx="120" fill="#068288"/>
+      <path d="M713.499 513.655V698.376C713.499 733.376 685.465 761.632 651.001 761.632H361.514C327.049 761.632 299.016 733.376 299.016 698.376V405.125C299.016 370.264 327.049 341.87 361.514 341.87H470.615C469.256 350.402 468.577 359.209 468.577 368.016C468.577 371.227 468.668 374.438 468.849 377.511C473.695 465.766 545.885 534.848 633.202 534.848C653.175 534.848 672.694 531.27 691.353 524.16C699.052 521.178 706.434 517.692 713.499 513.655Z" fill="#fff"/>
+      <path d="M766.172 368.016C766.172 411.869 745.475 450.767 713.456 475.399C703.402 483.197 692.125 489.482 680.169 494.115C665.54 499.665 649.734 502.738 633.204 502.738C562.372 502.738 504.312 446.363 500.508 375.631C500.327 373.108 500.281 370.539 500.281 368.016C500.281 359.026 501.142 350.31 502.817 341.916C514.774 280.128 568.758 233.34 633.204 233.34C706.527 233.34 766.172 293.752 766.172 368.016Z" fill="#fff"/>
+    </svg>
+    <h1>MACGILLIVRAY<br>LAW ARCADE</h1>
+    <p>Staff and guests only. Enter the word from your invitation.</p>
+    <form id="gateForm">
+      <input type="password" id="gateWord" name="gateWord" autocomplete="off"
+             autocapitalize="off" spellcheck="false" placeholder="PASSWORD">
+      <button class="primary" type="submit">ENTER</button>
+    </form>
+    <p class="err" id="gateErr"></p>
+  </div>
+  <noscript>
+    <p style="color:#e8f2f4;font-size:14px">This arcade needs JavaScript switched on.</p>
+  </noscript>
+</div>
 
 <main class="cab">
   <header class="top">
@@ -382,6 +426,7 @@
   </p>
 </section>
 
+<script src="js/gate.js"></script>
 <script src="js/config.js"></script>
 <script src="js/leaderboard.js"></script>
 <script>
