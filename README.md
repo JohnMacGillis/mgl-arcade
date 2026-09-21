@@ -4,12 +4,17 @@ Vertical arcade games for MacGillivray Injury & Insurance Law. Plain HTML, CSS
 and canvas — no build step, no framework, no dependencies. Drop the folder on
 any static host and it runs.
 
-Currently shipping **Counsel Chase**, a maze game. The Advocate eats case files
-while Denial, Delay, Lowball and Fine Print give chase; the firm's own mark is
-the power pellet.
+Currently shipping **Record Chase**. You are a paralegal chasing medical
+records. Collect every page on the floor while **Fax Only**, **On Leave**,
+**Prepay** and **No Reply** run you down. Pick up a signed authorization —
+drawn as the firm's own mark — and for a few seconds they have to get out of
+your way.
+
+Bonus pickups escalate the way a real request does: clinic notes, chart notes,
+subpoena, imaging, prepaid fee, rush request, full chart, complete file.
 
 ```
-index.html          Counsel Chase (game + engine, self-contained)
+index.html          Record Chase (game + engine, self-contained)
 favicon.svg         the firm mark
 js/config.js        which leaderboard backend to use  <-- the only file you edit
 js/leaderboard.js   leaderboard: local / supabase / hub

@@ -62,7 +62,7 @@ where rn <= 20;
 -- Housekeeping you may want AFTER the party.
 --
 --   -- clear one game's board:
---   delete from public.scores where game = 'counsel-chase';
+--   delete from public.scores where game = 'record-chase';
 --
 --   -- remove a name someone thought was funny at 11pm:
 --   delete from public.scores where name ilike '%whatever%';
