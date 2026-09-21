@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Counsel Chase — MacGillivray Law Arcade</title>
-<meta name="description" content="A vertical arcade maze game for MacGillivray Injury &amp; Insurance Law.">
+<title>Record Chase — MacGillivray Law Arcade</title>
+<meta name="description" content="A vertical arcade game about chasing medical records, for MacGillivray Injury &amp; Insurance Law.">
 <meta name="theme-color" content="#061416">
 <link rel="icon" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -59,6 +59,12 @@
     justify-content:space-between;
     gap:14px;
   }
+  .brandcol{display:flex;flex-direction:column;gap:6px;min-width:0;}
+  .gamename{
+    font-family:"Press Start 2P",monospace;
+    font-size:7px;letter-spacing:.22em;color:var(--brand-teal);
+    text-shadow:0 0 10px rgba(6,130,136,.6);
+  }
   .logo{
     display:block;
     width:clamp(116px,34vw,158px);
@@ -80,6 +86,8 @@
   /* ---------- screen ---------- */
   .bezel{
     position:relative;
+    align-self:center;
+    width:100%;
     min-height:0;
     border:1px solid var(--bezel-edge);
     border-radius:4px;
@@ -102,7 +110,7 @@
   canvas{
     display:block;
     max-width:100%;
-    max-height:100%;
+    max-height:min(100%, 74dvh);
     image-rendering:pixelated;
     touch-action:none;
   }
@@ -273,7 +281,7 @@
       <path d="M713.499 513.655V698.376C713.499 733.376 685.465 761.632 651.001 761.632H361.514C327.049 761.632 299.016 733.376 299.016 698.376V405.125C299.016 370.264 327.049 341.87 361.514 341.87H470.615C469.256 350.402 468.577 359.209 468.577 368.016C468.577 371.227 468.668 374.438 468.849 377.511C473.695 465.766 545.885 534.848 633.202 534.848C653.175 534.848 672.694 531.27 691.353 524.16C699.052 521.178 706.434 517.692 713.499 513.655Z" fill="#fff"/>
       <path d="M766.172 368.016C766.172 411.869 745.475 450.767 713.456 475.399C703.402 483.197 692.125 489.482 680.169 494.115C665.54 499.665 649.734 502.738 633.204 502.738C562.372 502.738 504.312 446.363 500.508 375.631C500.327 373.108 500.281 370.539 500.281 368.016C500.281 359.026 501.142 350.31 502.817 341.916C514.774 280.128 568.758 233.34 633.204 233.34C706.527 233.34 766.172 293.752 766.172 368.016Z" fill="#fff"/>
     </svg>
-    <h1>MACGILLIVRAY<br>LAW ARCADE</h1>
+    <h1>RECORD<br>CHASE</h1>
     <p>Staff and guests only. Enter the word from your invitation.</p>
     <form id="gateForm">
       <input type="password" id="gateWord" name="gateWord" autocomplete="off"
@@ -289,6 +297,7 @@
 
 <main class="cab">
   <header class="top">
+    <div class="brandcol">
     <svg class="logo" viewBox="0 0 257 53" fill="none" role="img" aria-label="MacGillivray Injury and Insurance Law" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#mglclip)">
 <path d="M24.7996 16.7719V27.8242C24.7996 29.9183 23.1222 31.609 21.0601 31.609H3.73944C1.67733 31.609 0 29.9183 0 27.8242V10.2783C0 8.19247 1.67733 6.49359 3.73944 6.49359H10.2672C10.1859 7.00408 10.1453 7.53103 10.1453 8.05798C10.1453 8.2501 10.1507 8.44222 10.1615 8.62611C10.4515 13.9066 14.7708 18.0399 19.9952 18.0399C21.1902 18.0399 22.3581 17.8258 23.4745 17.4004C23.9351 17.222 24.3768 17.0135 24.7996 16.7719Z" fill="currentColor"/>
@@ -336,23 +345,25 @@
 </clipPath>
 </defs>
 </svg>
+    <span class="gamename">RECORD CHASE</span>
+    </div>
     <div class="readout">
       <div><span class="k">SCORE</span><span class="v" id="score">0</span></div>
       <div><span class="k">BEST</span><span class="v" id="high">0</span></div>
-      <div><span class="k">FILE</span><span class="v" id="level">01</span></div>
+      <div><span class="k">REQUEST</span><span class="v" id="level">01</span></div>
     </div>
   </header>
 
   <div class="bezel">
     <div class="screen">
-      <canvas id="game" width="672" height="744" aria-label="Counsel Chase playfield"></canvas>
+      <canvas id="game" width="672" height="744" aria-label="Record Chase playfield"></canvas>
       <div class="glass"></div>
     </div>
   </div>
 
   <div class="bottom">
     <div class="strip">
-      <div class="lives"><span class="lab">RETAINERS</span><span id="lives"></span></div>
+      <div class="lives"><span class="lab">FOLLOW-UPS</span><span id="lives"></span></div>
       <div class="btns">
         <button id="board" type="button">BOARD</button>
         <button id="sound" type="button" aria-pressed="true">SOUND</button>
@@ -370,12 +381,12 @@
 
 <div class="veil" id="veil" role="dialog" aria-modal="true" aria-labelledby="veilTitle">
   <div class="panel">
-    <h2 id="veilTitle">CASE DISMISSED</h2>
+    <h2 id="veilTitle">STILL WAITING</h2>
 
     <div class="final" id="finalWrap">
-      <span class="k">FINAL AWARD</span>
+      <span class="k">PAGES COLLECTED</span>
       <span class="v" id="finalScore">0</span>
-      <span class="sub" id="finalSub">Files closed: 1</span>
+      <span class="sub" id="finalSub">Requests filled: 1</span>
     </div>
 
     <form class="entry" id="entry">
@@ -402,7 +413,7 @@
 </div>
 
 <section class="docket">
-  <p class="eyebrow">OPPOSING PARTIES</p>
+  <p class="eyebrow">WHAT IS IN YOUR WAY</p>
   <dl class="roster" id="roster"></dl>
 
   <p class="eyebrow">CONTROLS</p>
@@ -415,10 +426,15 @@
   </p>
 
   <p class="fine">
-    <strong>Scoring.</strong> Case file 10 &middot; Firm seal 50 &middot; Settling an adjuster 200, 400, 800, 1600
-    &middot; Exhibit bonus 100&ndash;5000 &middot; Extra retainer at 10,000.
+    <strong>The job.</strong> You are a paralegal chasing records. Collect every page on the floor before
+    Fax Only, On Leave, Prepay and No Reply run you down. Pick up a signed authorization and for a few
+    seconds they have to get out of your way.
+    <br><br>
+    <strong>Scoring.</strong> Page of records 10 &middot; Signed authorization 50 &middot; Clearing an
+    obstacle 200, 400, 800, 1600 &middot; Records bonus 100&ndash;5000 &middot; Extra follow-up at 10,000.
     <br><br>
     <strong>Disclaimer.</strong> This is an arcade game, not legal advice, and no outcome here predicts any real one.
+    Real records take longer.
     <br><br>
     <strong>Brand.</strong> Logo, wordmark and palette are the firm's own, from
     <a href="https://macgillivraylaw.com/">macgillivraylaw.com</a> &mdash; teal #068288, dark teal #004953,
@@ -483,25 +499,25 @@
   };
 
   var GHOSTS = [
-    { id:"deny",      name:"DENIAL",     color:"#e53c3c", scatter:{x:25,y:0},  home:{x:108,y:92},  out:true,  wait:0.0,
-      bio:"Refuses the claim outright and comes straight at you. No angle, no subtlety — pure pursuit." },
-    { id:"delay",     name:"DELAY",      color:"#f58ca4", scatter:{x:2,y:0},   home:{x:108,y:116}, out:false, wait:1.0,
-      bio:"Never where you are, always where you are going. Aims four tiles ahead and waits for you there." },
-    { id:"lowball",   name:"LOWBALL",    color:"#5ad2dc", scatter:{x:27,y:30}, home:{x:92,y:116},  out:false, wait:4.0,
-      bio:"Plays off Denial's position to pincer you. Alone it is harmless; paired it is the dangerous one." },
-    { id:"fineprint", name:"FINE PRINT", color:"#fe611e", scatter:{x:0,y:30},  home:{x:124,y:116}, out:false, wait:8.0,
-      bio:"Hounds you up close, then wanders off to its own corner. Unpredictable exactly when it matters." }
+    { id:"fax",     name:"FAX ONLY", color:"#e53c3c", scatter:{x:25,y:0},  home:{x:108,y:92},  out:true,  wait:0.0,
+      bio:"No portal, no email, no exceptions. Comes straight down the hall at you and never once lets up." },
+    { id:"onleave", name:"ON LEAVE", color:"#f58ca4", scatter:{x:2,y:0},   home:{x:108,y:116}, out:false, wait:1.0,
+      bio:"The records clerk is away until the 27th. Always the 27th. Aims four tiles ahead and waits there." },
+    { id:"prepay",  name:"PREPAY",   color:"#5ad2dc", scatter:{x:27,y:30}, home:{x:92,y:116},  out:false, wait:4.0,
+      bio:"Forty-five dollars before anyone opens a drawer. Works off Fax Only to pincer you \u2014 dangerous in company." },
+    { id:"noreply", name:"NO REPLY", color:"#fe611e", scatter:{x:0,y:30},  home:{x:124,y:116}, out:false, wait:8.0,
+      bio:"Third voicemail, still nothing. Crowds you, then wanders off exactly when you thought you had it." }
   ];
 
   var EXHIBITS = [
-    { name:"RETAINER",     pts:100,  art:"briefcase" },
-    { name:"AFFIDAVIT",    pts:300,  art:"scroll"    },
-    { name:"GAVEL",        pts:500,  art:"gavel"     },
-    { name:"SCALES",       pts:700,  art:"scales"    },
-    { name:"SETTLEMENT",   pts:1000, art:"cheque"    },
-    { name:"VERDICT",      pts:2000, art:"star"      },
-    { name:"PRECEDENT",    pts:3000, art:"book"      },
-    { name:"CLASS ACTION", pts:5000, art:"crown"     }
+    { name:"CLINIC NOTES",  pts:100,  art:"briefcase" },
+    { name:"CHART NOTES",   pts:300,  art:"scroll"    },
+    { name:"SUBPOENA",      pts:500,  art:"gavel"     },
+    { name:"IMAGING",       pts:700,  art:"imaging"   },
+    { name:"PREPAID FEE",   pts:1000, art:"cheque"    },
+    { name:"RUSH REQUEST",  pts:2000, art:"star"      },
+    { name:"FULL CHART",    pts:3000, art:"book"      },
+    { name:"COMPLETE FILE", pts:5000, art:"crown"     }
   ];
 
   var UP = {x:0,y:-1}, LEFT = {x:-1,y:0}, DOWN = {x:0,y:1}, RIGHT = {x:1,y:0};
@@ -1116,18 +1132,13 @@
       ctx.fillStyle = C.teal; ctx.fillRect(-3.4, -2.2, 6.8, 4.4);
       ctx.strokeStyle = C.pale; ctx.lineWidth = 0.8; ctx.strokeRect(-3.4, -2.2, 6.8, 4.4);
       ctx.restore();
-    } else if (kind === "scales") {
-      ctx.strokeStyle = C.pale; ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(0, -5); ctx.lineTo(0, 4);
-      ctx.moveTo(-5, -3.2); ctx.lineTo(5, -3.2);
-      ctx.moveTo(-3.5, 4); ctx.lineTo(3.5, 4);
-      ctx.moveTo(-5, -3.2); ctx.lineTo(-5, -1.4);
-      ctx.moveTo(5, -3.2); ctx.lineTo(5, -1.4);
-      ctx.stroke();
-      ctx.fillStyle = C.teal;
-      ctx.beginPath(); ctx.moveTo(-7, -1.4); ctx.lineTo(-3, -1.4); ctx.lineTo(-5, 1); ctx.closePath(); ctx.fill();
-      ctx.beginPath(); ctx.moveTo(3, -1.4); ctx.lineTo(7, -1.4); ctx.lineTo(5, 1); ctx.closePath(); ctx.fill();
+    } else if (kind === "imaging") {
+      ctx.fillStyle = "#07232a"; ctx.fillRect(-5, -5.5, 10, 11);
+      ctx.strokeStyle = C.pale; ctx.lineWidth = 0.8; ctx.strokeRect(-5, -5.5, 10, 11);
+      ctx.fillStyle = "#b9dde2";
+      ctx.beginPath(); ctx.ellipse(0, -0.4, 2.5, 4.1, 0, 0, 6.2832); ctx.fill();
+      ctx.fillStyle = "#07232a";
+      ctx.beginPath(); ctx.ellipse(0, -0.4, 1.1, 2.7, 0, 0, 6.2832); ctx.fill();
     } else if (kind === "cheque") {
       ctx.fillStyle = C.pale; ctx.fillRect(-6, -3.5, 12, 7);
       ctx.strokeStyle = C.teal; ctx.strokeRect(-6, -3.5, 12, 7);
@@ -1197,22 +1208,22 @@
 
   function paintOverlay() {
     if (G.phase === "ready") {
-      banner("COURT IS IN SESSION", 140, C.teal);
+      banner("REQUEST SENT", 140, C.teal);
       if (G.timer < 1.1) banner("READY", 156, C.pale);
     } else if (G.phase === "clear") {
       paintMark(ctx, W / 2, 96, 22, null, C.teal);
-      centreText("CASE CLOSED", 124, C.pale, 10, C.teal);
-      centreText("FILE NO. " + pad(G.level + 1) + " OPENING", 144, C.muted, 6);
+      centreText("RECORDS RECEIVED", 124, C.pale, 9, C.teal);
+      centreText("REQUEST NO. " + pad(G.level + 1) + " SENT", 144, C.muted, 6);
     } else if (G.phase === "dying") {
-      if (pac.dead > 0.9) banner("CLAIM DENIED", 140, C.red);
+      if (pac.dead > 0.9) banner("REQUEST DENIED", 140, C.red);
     } else if (G.phase === "over") {
       ctx.fillStyle = "rgba(3,4,10,.78)";
       ctx.fillRect(0, 0, W, H);
-      centreText("CASE DISMISSED", 100, C.red, 11, C.red);
-      centreText("FINAL AWARD", 128, C.muted, 6);
+      centreText("STILL WAITING", 100, C.red, 11, C.red);
+      centreText("PAGES COLLECTED", 128, C.muted, 6);
       centreText(String(G.score), 146, C.pale, 13, C.teal);
-      centreText("FILES CLOSED: " + pad(G.level), 166, C.muted, 6);
-      if (Math.floor(G.t * 2) % 2 === 0) centreText("PRESS ENTER TO REFILE", 196, C.teal, 7);
+      centreText("REQUESTS FILLED: " + pad(G.level), 166, C.muted, 6);
+      if (Math.floor(G.t * 2) % 2 === 0) centreText("PRESS ENTER TO RESEND", 196, C.teal, 7);
     }
     if (G.paused && (G.phase === "play" || G.phase === "ready")) {
       ctx.fillStyle = "rgba(3,4,10,.72)";
@@ -1232,12 +1243,12 @@
     ctx.restore();
     centreText("MACGILLIVRAY", 56, C.pale, 10, C.teal);
     centreText("INJURY & INSURANCE LAW", 70, C.teal, 6);
-    centreText("- ARCADE -", 86, C.muted, 6);
+    centreText("- RECORD CHASE -", 86, C.muted, 6);
 
     ctx.textAlign = "left";
     gameFont(6);
     ctx.fillStyle = C.muted;
-    ctx.fillText("OPPOSING PARTIES", 34, 112);
+    ctx.fillText("WHAT IS IN YOUR WAY", 34, 112);
 
     for (var i = 0; i < GHOSTS.length; i++) {
       var g = GHOSTS[i];
@@ -1265,8 +1276,8 @@
     }
 
     ctx.textAlign = "center";
-    centreText("EAT THE CASE FILES.", 216, C.muted, 6);
-    centreText("OUR MARK TURNS THE TABLES.", 228, C.muted, 6);
+    centreText("COLLECT EVERY PAGE.", 216, C.muted, 6);
+    centreText("AUTHORIZATIONS CLEAR THE WAY.", 228, C.muted, 6);
 
     if (Math.floor(t * 2) % 2 === 0) {
       centreText(isTouch ? "TAP TO START" : "PRESS ENTER TO START", 244, C.pale, 8, C.teal);
@@ -1440,7 +1451,7 @@
    ========================================================================= */
 (function () {
   "use strict";
-  var GAME_ID = "counsel-chase";
+  var GAME_ID = "record-chase";
 
   var veil = document.getElementById("veil");
   var entry = document.getElementById("entry");
@@ -1461,11 +1472,11 @@
     gameOver: function (score, level) {
       pending = { score: score, level: level };
       lastRank = null;
-      titleEl.textContent = "CASE DISMISSED";
+      titleEl.textContent = "STILL WAITING";
       finalWrap.hidden = false;
       entry.hidden = false;
       finalScore.textContent = String(score);
-      finalSub.textContent = "Files closed: " + level;
+      finalSub.textContent = "Requests filled: " + level;
       who.value = Arcade.rememberedName();
       openVeil();
       refresh();
